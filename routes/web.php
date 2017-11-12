@@ -89,3 +89,4 @@ $router->options('{endpoint}', [
     'as' => 'notValidEndpoint',
     'uses' => 'Controller@notValidEndpoint'
 ]);
+
