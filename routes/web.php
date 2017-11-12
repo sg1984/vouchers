@@ -26,12 +26,12 @@ $router->group(['prefix' => 'recipients'], function () use ($router) {
         'uses' => 'RecipientsController@store'
     ]);
 
-    $router->post('/vouchers', [
+    $router->get('/vouchers', [
         'as' => 'recipients.allVouchers',
         'uses' => 'RecipientsController@allVouchers'
     ]);
 
-    $router->post('/valid-vouchers', [
+    $router->get('/valid-vouchers', [
         'as' => 'recipients.validVouchers',
         'uses' => 'RecipientsController@validVouchers'
     ]);
@@ -53,7 +53,7 @@ $router->group(['prefix' => 'offers'], function () use ($router) {
         'uses' => 'OffersController@getOffer'
     ]);
 
-    $router->post('/{offerId}/new-vouchers', [
+    $router->post('/{offerId}', [
         'as' => 'offers.newVouchers',
         'uses' => 'OffersController@newVouchers'
     ]);
@@ -64,6 +64,7 @@ $router->post('validate-voucher',[
     'uses' => 'RecipientsController@validateVoucher'
 ]);
 
+// TO GET METHOD NOT ALLOWED, ROUTE NOT FOUND
 $router->get('{endpoint}', [
     'as' => 'notValidEndpoint',
     'uses' => 'Controller@notValidEndpoint'
@@ -73,6 +74,18 @@ $router->put('{endpoint}', [
     'uses' => 'Controller@notValidEndpoint'
 ]);
 $router->post('{endpoint}', [
+    'as' => 'notValidEndpoint',
+    'uses' => 'Controller@notValidEndpoint'
+]);
+$router->patch('{endpoint}', [
+    'as' => 'notValidEndpoint',
+    'uses' => 'Controller@notValidEndpoint'
+]);
+$router->delete('{endpoint}', [
+    'as' => 'notValidEndpoint',
+    'uses' => 'Controller@notValidEndpoint'
+]);
+$router->options('{endpoint}', [
     'as' => 'notValidEndpoint',
     'uses' => 'Controller@notValidEndpoint'
 ]);

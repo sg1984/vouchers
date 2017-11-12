@@ -34,7 +34,28 @@ class Offer extends Model
 
     public static function validateAndNew(array $data = [])
     {
+        $newOffer = self::validateAndNewInstance(new self(), $data);
+
+        if( ! $newOffer->isValidDiscount() ){
+            throw new ValidationException('The discount must be a value between 0 and 100.');
+        }
+
         return self::validateAndNewInstance(new self(), $data);
+    }
+
+    public function isValidDiscount()
+    {
+        if( empty($this->discount) && $this->discount != 0 ){
+
+            return false;
+        }
+
+        if( $this->discount > 100 || $this->discount < 0 ){
+
+            return false;
+        }
+
+        return true;
     }
 
     public function generateVouchers(Carbon $expiration_date = null, Recipient $recipient = null)

@@ -52,7 +52,7 @@ class EndpointOffersTest extends TestCase
         $offer = factory(\App\Offer::class)->create();
         $expiration_date = \Illuminate\Support\Carbon::today()->addDays(30)->endOfDay()->format('Y-m-d');
 
-        $this->json('POST', 'offers/' . $offer->id . '/new-vouchers', compact('expiration_date'))
+        $this->json('POST', 'offers/' . $offer->id, compact('expiration_date'))
             ->seeJson([
                 'success' => true,
             ]);
@@ -63,19 +63,22 @@ class EndpointOffersTest extends TestCase
         $offer = factory(\App\Offer::class)->create();
         $expiration_date = \Illuminate\Support\Carbon::today()->addDays(30)->endOfDay()->format('Y-m-d');
 
-        $this->json('PUT', 'offers/' . $offer->id . '/new-vouchers', compact('expiration_date'))
+        $this->json('PUT', 'offers/' . $offer->id, compact('expiration_date'))
             ->seeStatusCode(405);
     }
 
     public function test_fail_to_create_vouchers_no_offer_provided()
     {
-        $this->json('POST', 'offers/new-vouchers', compact('expiration_date'))
-            ->seeStatusCode(405);
+        $this->json('POST', 'offers', compact('expiration_date'))
+            ->seeJson([
+                'success' => false,
+                'message' => 'This is not a valid endpoint!'
+            ]);
     }
 
     public function test_fail_to_create_vouchers_invalid_offer_provided()
     {
-        $this->json('POST', 'offers/invalid-value/new-vouchers', compact('expiration_date'))
+        $this->json('POST', 'offers/invalid-value', compact('expiration_date'))
             ->seeJson([
                 'success' => false,
                 'error' => 'Offer not found in database!'
@@ -86,7 +89,7 @@ class EndpointOffersTest extends TestCase
     {
         $offer = factory(\App\Offer::class)->create();
 
-        $this->json('POST', 'offers/' . $offer->id . '/new-vouchers', compact('expiration_date'))
+        $this->json('POST', 'offers/' . $offer->id, compact('expiration_date'))
             ->seeJson([
                 'success' => false,
                 'error' => 'The expiration date is mandatory to create vouchers!'
