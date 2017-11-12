@@ -32,8 +32,11 @@ Now, if you want to know if it is all working, you can run the tests:
 vendor/bin/phpunit
 ```  
 
-This is a API, so to better test it, there is a [Postman](https://www.getpostman.com/) collection [here](https://www.getpostman.com/collections/adb0d24343835147cebd) to use the endpoints. The collection is based in a localhost server that can be started running the command:
+This is a API, so to better test it, there is a [Postman](https://www.getpostman.com/) collection [here](https://www.getpostman.com/collections/adb0d24343835147cebd) to use the endpoints. 
+The collection is based to use the address http:://localhost:8000.
+If a different address or port is used, the address must be changed at Postman as well.
 ```
 php -S localhost:8000 -t public
 ```    
 
+If there is any question/suggestion, please let me know. Can be via issue or via https://sandrogallina.com/.    
